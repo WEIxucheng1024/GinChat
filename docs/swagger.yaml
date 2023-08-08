@@ -1,0 +1,173 @@
+info:
+  contact: {}
+paths:
+  /test2:
+    get:
+      responses:
+        "200":
+          description: welcome
+          schema:
+            type: string
+      tags:
+      - 首页
+  /user/createUser:
+    post:
+      parameters:
+      - description: 用户名
+        in: formData
+        name: userName
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: passWord
+        required: true
+        type: string
+      - description: 名称
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: email
+        in: formData
+        name: email
+        type: string
+      - description: phone
+        in: formData
+        name: phone
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 新增用户
+      tags:
+      - User
+  /user/deleteUser:
+    get:
+      parameters:
+      - description: 用户名
+        in: query
+        name: userName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 删除用户
+      tags:
+      - User
+  /user/getUserByPhone:
+    post:
+      parameters:
+      - description: 手机号
+        in: formData
+        name: phone
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 根据手机号获取用户
+      tags:
+      - User
+  /user/getUserByUEmail:
+    post:
+      parameters:
+      - description: 邮箱
+        in: formData
+        name: email
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 根据邮箱获取用户
+      tags:
+      - User
+  /user/getUserByUserName:
+    post:
+      parameters:
+      - description: 账号
+        in: formData
+        name: userName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 根据userName获取用户
+      tags:
+      - User
+  /user/getUserList:
+    get:
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 所有用户
+      tags:
+      - User
+  /user/loginUser:
+    post:
+      parameters:
+      - description: 账号
+        in: formData
+        name: userName
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: passWord
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 登录用户
+      tags:
+      - User
+  /user/updateUser:
+    post:
+      parameters:
+      - description: 账号
+        in: formData
+        name: userName
+        type: string
+      - description: 名称
+        in: formData
+        name: name
+        type: string
+      - description: 密码
+        in: formData
+        name: passWord
+        type: string
+      - description: 手机号
+        in: formData
+        name: phone
+        type: string
+      - description: 邮箱
+        in: formData
+        name: email
+        type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 修改用户
+      tags:
+      - User
+swagger: "2.0"
