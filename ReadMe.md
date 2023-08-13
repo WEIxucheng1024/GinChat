@@ -152,6 +152,7 @@ go get github.com/spf13/viper
 go get -u github.com/gin-gonic/gin
 获取gin框架
 
+
 go get -u gorm.io/gorm
 go get -u gorm.io/driver/sqlite
 go get gorm.io/driver/mysql
