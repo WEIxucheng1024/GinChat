@@ -8,34 +8,40 @@ paths:
           description: welcome
           schema:
             type: string
+      summary: 测试
       tags:
       - 首页
   /user/createUser:
     post:
       parameters:
       - description: 用户名
-        in: formData
-        name: userName
+        in: body
+        name: user_name
         required: true
-        type: string
+        schema:
+          type: string
       - description: 密码
-        in: formData
+        in: body
         name: passWord
         required: true
-        type: string
+        schema:
+          type: string
       - description: 名称
-        in: formData
+        in: body
         name: name
         required: true
-        type: string
+        schema:
+          type: string
       - description: email
-        in: formData
+        in: body
         name: email
-        type: string
+        schema:
+          type: string
       - description: phone
-        in: formData
+        in: body
         name: phone
-        type: string
+        schema:
+          type: string
       responses:
         "200":
           description: 'code": "200", "message": "Success"}'
@@ -110,6 +116,17 @@ paths:
       - User
   /user/getUserList:
     get:
+      parameters:
+      - description: 用户id
+        in: header
+        name: user-id
+        required: true
+        type: string
+      - description: 用户token
+        in: header
+        name: user-token
+        required: true
+        type: string
       responses:
         "200":
           description: 'code": "200", "message": "Success"}'
@@ -122,13 +139,36 @@ paths:
     post:
       parameters:
       - description: 账号
-        in: formData
+        in: body
         name: userName
         required: true
-        type: string
+        schema:
+          type: string
       - description: 密码
-        in: formData
+        in: body
         name: passWord
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: 'code": "200", "message": "Success"}'
+          schema:
+            type: string
+      summary: 登录用户
+      tags:
+      - User
+  /user/signOut:
+    get:
+      parameters:
+      - description: 用户id
+        in: header
+        name: user-id
+        required: true
+        type: string
+      - description: 用户token
+        in: header
+        name: user-token
         required: true
         type: string
       responses:
@@ -136,7 +176,7 @@ paths:
           description: 'code": "200", "message": "Success"}'
           schema:
             type: string
-      summary: 登录用户
+      summary: 登录登出
       tags:
       - User
   /user/updateUser:

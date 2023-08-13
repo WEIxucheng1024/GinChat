@@ -21,6 +21,7 @@ const docTemplate = `{
                 "tags": [
                     "首页"
                 ],
+                "summary": "测试",
                 "responses": {
                     "200": {
                         "description": "welcome",
@@ -39,37 +40,47 @@ const docTemplate = `{
                 "summary": "新增用户",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "用户名",
-                        "name": "userName",
-                        "in": "formData",
-                        "required": true
+                        "name": "user_name",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "密码",
                         "name": "passWord",
-                        "in": "formData",
-                        "required": true
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "名称",
                         "name": "name",
-                        "in": "formData",
-                        "required": true
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "email",
                         "name": "email",
-                        "in": "formData"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "phone",
                         "name": "phone",
-                        "in": "formData"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -188,6 +199,22 @@ const docTemplate = `{
                     "User"
                 ],
                 "summary": "所有用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户id",
+                        "name": "user-id",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户token",
+                        "name": "user-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "code\": \"200\", \"message\": \"Success\"}",
@@ -206,17 +233,53 @@ const docTemplate = `{
                 "summary": "登录用户",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "账号",
                         "name": "userName",
-                        "in": "formData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "密码",
+                        "name": "passWord",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\": \"200\", \"message\": \"Success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signOut": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "登录登出",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户id",
+                        "name": "user-id",
+                        "in": "header",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "密码",
-                        "name": "passWord",
-                        "in": "formData",
+                        "description": "用户token",
+                        "name": "user-token",
+                        "in": "header",
                         "required": true
                     }
                 ],

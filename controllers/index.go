@@ -3,6 +3,7 @@ package controllers
 import "github.com/gin-gonic/gin"
 
 // GetIndex
+// @Summary 测试
 // @Tags 首页
 // @Success 200 {object} string "welcome"
 // @Router /test2 [get]

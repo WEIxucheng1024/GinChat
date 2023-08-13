@@ -89,8 +89,8 @@ srem key value						删除集合中的某个元素，删除成功返回1，失�
 
 
 Docker
-docker ps -a						展示所有容器
-docker start AAAAA					启动ID为AAAA的容器
+docker ps -a						        展示所有容器
+docker start AAAAA					        启动ID为AAAA的容器
 docker exec -it AAAA /bin/sh				进入AAAA的容器
 
 

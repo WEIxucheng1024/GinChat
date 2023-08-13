@@ -10,9 +10,9 @@ type UserBasic struct {
 	gorm.Model
 	// uniqueIndex为唯一索引，size位长度
 	UserName      string `gorm:"uniqueIndex;size:8" json:"userName"`
-	PassWord      string `json:"passWord"`
-	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)"`
-	Email         string `valid:"email"`
+	PassWord      string `json:"passWord" json:"passWord"`
+	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)" json:"phone"`
+	Email         string `valid:"email" json:"email"`
 	Identity      string
 	ClentIP       string
 	ClientPort    string
@@ -30,10 +30,10 @@ func (this *UserBasic) TableName() string {
 	return "user_basic"
 }
 
-func GetUserBasic() []*UserBasic {
+func GetUserBasic() ([]*UserBasic, error) {
 	var users []*UserBasic
-	utils.DB.Find(&users)
-	return users
+	db := utils.DB.Find(&users)
+	return users, db.Error
 }
 
 func GetUser(userName, phone, email string) []*UserBasic {
