@@ -3,6 +3,8 @@ package router
 import (
 	"ginchat1/controllers"
 	"ginchat1/docs"
+	"ginchat1/service/user"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -25,5 +27,6 @@ func Router() *gin.Engine {
 	r.POST("/user/loginUser", controllers.LoginUser)
 	r.GET("/user/signOut", controllers.SignOut)
 
+	r.GET("/user/testMes", user.TestMes)
 	return r
 }

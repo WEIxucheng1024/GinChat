@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"ginchat1/models"
 	"ginchat1/service/user"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -55,7 +56,7 @@ func GetUserByEmail(c *gin.Context) {
 // CreateUser
 // @Summary 新增用户
 // @Tags User
-// @Param user_name body string true "用户名"
+// @Param userName body string true "用户名"
 // @Param passWord body string true "密码"
 // @Param name body string true "名称"
 // @Param email body string false "email"
@@ -69,7 +70,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	resp, code, err := user.CreateUser(req)
-	RenderJson(c, resp, code, err)
+	RenderJSONAuth(c, resp, code, err)
 }
 
 // DeleteUser

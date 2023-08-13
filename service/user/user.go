@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"ginchat1/models"
 	"ginchat1/utils"
+	"math/rand"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"math/rand"
-	"strconv"
+	"github.com/gorilla/websocket"
 )
 
 func GetAllUser() (users []*models.UserBasic, code int, err error) {
@@ -157,4 +161,69 @@ func UpdateUser(c *gin.Context) (resp *UserResp, code int, err error) {
 		code = 200
 	}
 	return
+}
+
+// 防止跨域站点的伪造请求
+var upGrade = websocket.Upgrader{
+	// 设置websocket连接时的限制，这里直接return true，没有做限制
+	/**
+		限制实例：
+		// 允许的域名或 IP 地址列表
+	        allowedOrigins := map[string]bool{
+	            "https://example.com": true,
+	            "https://subdomain.example.com": true,
+	            // ... 添加更多允许的来源
+	        }
+
+	        // 检查请求的来源是否在允许的列表中
+	        origin := r.Header.Get("Origin")
+	        return allowedOrigins[origin]
+		**/
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
+
+func TestMes(c *gin.Context) {
+	// 将http连接升级为websocket连接
+	ws, err := upGrade.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer func(ws *websocket.Conn) {
+		err = ws.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(ws)
+
+	MsgHandler(ws, c)
+}
+
+func MsgHandler(ws *websocket.Conn, ctx *gin.Context) {
+	mesType, message, err := ws.ReadMessage()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("Received message: %s\n", message)
+
+	err = ws.WriteMessage(mesType, message)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	utils.Publish(ctx, utils.PubkushKey, string(message))
+
+	mes, err := utils.Subscribe(ctx, utils.PubkushKey)
+	if err != nil {
+		fmt.Println(err)
+	}
+	tm := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Printf("[ws][%s]:[%s]", tm, mes)
+	err = ws.WriteMessage(1, []byte(mes))
+	if err != nil {
+		fmt.Println(err)
+	}
 }

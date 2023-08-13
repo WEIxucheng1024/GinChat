@@ -44,7 +44,7 @@ Redis:
 redis-server						启动redis服务
 redis-cli -h 101.33.207.188 -p 6379 -a "password"		启动redis客户端(后面为链接远程redis数据库)
 select 1							切换到1号数据库
-dbsize							查看当前数据库的存储数量
+dbsize							    查看当前数据库的存储数量
 EXPIRE key 10						给某个key设置十秒过期时间
 
 Redis的CRUD：这里只记录了部分指令，详细的可以在菜鸟教程上看
@@ -92,6 +92,10 @@ Docker
 docker ps -a						        展示所有容器
 docker start AAAAA					        启动ID为AAAA的容器
 docker exec -it AAAA /bin/sh				进入AAAA的容器
+docker images                               列出所有镜像
+docker search mysql                         查找官方的所有mysql镜像
+docker pull mysql                           拉取mysql镜像
+docker run -it mysql                        启动一个mysql容器
 
 
 

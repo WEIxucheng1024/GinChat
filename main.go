@@ -10,6 +10,7 @@ import (
 func main() {
 	utils.InitConfig()
 	utils.InitMysql()
+	utils.InitRedis()
 
 	err := models.InitModels()
 	if err != nil {
