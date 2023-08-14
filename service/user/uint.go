@@ -3,7 +3,7 @@ package user
 import "time"
 
 type UserResp struct {
-	ID         string
+	UUID       string
 	UserName   string
 	Name       string
 	CreateTime time.Time

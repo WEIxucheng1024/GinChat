@@ -16,7 +16,7 @@ paths:
       parameters:
       - description: 用户名
         in: body
-        name: user_name
+        name: userName
         required: true
         schema:
           type: string
@@ -119,7 +119,7 @@ paths:
       parameters:
       - description: 用户id
         in: header
-        name: user-id
+        name: user-uuid
         required: true
         type: string
       - description: 用户token
@@ -163,7 +163,7 @@ paths:
       parameters:
       - description: 用户id
         in: header
-        name: user-id
+        name: user-uuid
         required: true
         type: string
       - description: 用户token

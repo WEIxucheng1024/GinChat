@@ -26,11 +26,11 @@ func LoginUser(c *gin.Context) {
 // SignOut
 // @Summary 登录登出
 // @Tags User
-// @Param user-id header string true "用户id"
+// @Param user-uuid header string true "用户id"
 // @Param user-token header string true "用户token"
 // @Success 200 {string} json {"code": "200", "message": "Success"}
 // @Router /user/signOut [get]
 func SignOut(c *gin.Context) {
-	_, code, err := auth.SignOut(c.GetHeader("user-id"), c.GetHeader("user-token"))
+	_, code, err := auth.SignOut(c.GetHeader("user-uuid"), c.GetHeader("user-token"))
 	RenderJSONAuth(c, nil, code, err)
 }

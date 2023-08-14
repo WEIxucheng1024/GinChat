@@ -4,18 +4,18 @@ import (
 	"ginchat1/models/auth"
 )
 
-func SignOut(userId, token string) (resp *LoginResponse, code int, err error) {
-	loginLog, err := auth.FindToken(userId, token)
+func SignOut(userUUID, token string) (resp *LoginResponse, code int, err error) {
+	loginLog, err := auth.FindToken(userUUID, token)
 	if err != nil {
 		code = 500
 		return
 	}
-	if loginLog.UserID != userId {
+	if loginLog.UserUUID != userUUID {
 		code = 401
 		return
 	}
 
-	db := auth.DeleteToken(userId, token)
+	db := auth.DeleteToken(userUUID, token)
 	if db.Error != nil {
 		err = db.Error
 		code = 500

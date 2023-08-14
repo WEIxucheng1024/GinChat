@@ -8,8 +8,8 @@ import (
 
 type UserBasic struct {
 	gorm.Model
-	// uniqueIndex为唯一索引，size位长度
-	UserName      string `gorm:"uniqueIndex;size:8" json:"userName"`
+	UUID          string `gorm:"primaryKey" json:"uuid"`
+	UserName      string `gorm:"uniqueIndex;size:16" json:"userName"` // uniqueIndex为唯一索引，size位长度
 	PassWord      string `json:"passWord" json:"passWord"`
 	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)" json:"phone"`
 	Email         string `valid:"email" json:"email"`

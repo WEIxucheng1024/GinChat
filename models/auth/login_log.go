@@ -7,31 +7,31 @@ import (
 
 type LoginLog struct {
 	gorm.Model
-	UserID string
-	Token  string
+	UserUUID string
+	Token    string
 }
 
 func (this *LoginLog) TableName() string {
 	return "login_log"
 }
 
-func SaveToken(userId, token string) *gorm.DB {
+func SaveToken(userUUID, token string) *gorm.DB {
 	loginLog := &LoginLog{
-		UserID: userId,
-		Token:  token,
+		UserUUID: userUUID,
+		Token:    token,
 	}
 	return utils.DB.Create(loginLog)
 }
 
-func DeleteToken(userId, token string) *gorm.DB {
+func DeleteToken(userUUID, token string) *gorm.DB {
 	loginLog := &LoginLog{
-		UserID: userId,
-		Token:  token,
+		UserUUID: userUUID,
+		Token:    token,
 	}
-	return utils.DB.Where("user_id = ?", loginLog.UserID).Where("token = ?", loginLog.Token).Delete(&loginLog)
+	return utils.DB.Where("user_uuid = ?", loginLog.UserUUID).Where("token = ?", loginLog.Token).Delete(&loginLog)
 }
 
-func FindToken(userId, token string) (loginLog *LoginLog, err error) {
-	db := utils.DB.Where("user_id = ?", userId).Where("token = ?", token).Find(&loginLog)
+func FindToken(userUUID, token string) (loginLog *LoginLog, err error) {
+	db := utils.DB.Where("user_uuid = ?", userUUID).Where("token = ?", token).Find(&loginLog)
 	return loginLog, db.Error
 }

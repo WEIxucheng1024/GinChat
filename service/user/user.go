@@ -7,7 +7,6 @@ import (
 	"ginchat1/utils"
 	"math/rand"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/asaskevich/govalidator"
@@ -93,6 +92,8 @@ func CreateUser(user *models.UserBasic) (resp *UserResp, code int, err error) {
 		}
 	}
 
+	user.UUID = utils.RandomString(8, 62)
+
 	createUser := models.CreateUser(user)
 	if createUser.Error != nil {
 		code = 500
@@ -101,7 +102,7 @@ func CreateUser(user *models.UserBasic) (resp *UserResp, code int, err error) {
 	} else {
 		code = 200
 		resp = &UserResp{
-			ID:         strconv.Itoa(int(user.ID)),
+			UUID:       user.UUID,
 			UserName:   user.UserName,
 			Name:       user.Name,
 			CreateTime: user.CreatedAt,
@@ -151,7 +152,7 @@ func UpdateUser(c *gin.Context) (resp *UserResp, code int, err error) {
 		return
 	} else {
 		resp = &UserResp{
-			ID:         strconv.Itoa(int(user.ID)),
+			UUID:       user.UUID,
 			UserName:   user.UserName,
 			Name:       user.Name,
 			CreateTime: user.CreatedAt,
@@ -202,28 +203,38 @@ func TestMes(c *gin.Context) {
 }
 
 func MsgHandler(ws *websocket.Conn, ctx *gin.Context) {
-	mesType, message, err := ws.ReadMessage()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Printf("Received message: %s\n", message)
+	for {
+		// 读取客户端消息
+		mesType, message, err := ws.ReadMessage()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	err = ws.WriteMessage(mesType, message)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	utils.Publish(ctx, utils.PubkushKey, string(message))
+		// 返回消息到客户端
+		err = ws.WriteMessage(mesType, message)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		go func(message string) {
+			time.Sleep(100 * time.Millisecond)
+			err = utils.Publish(ctx, utils.PubkushKey, string(message))
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+		}(string(message))
 
-	mes, err := utils.Subscribe(ctx, utils.PubkushKey)
-	if err != nil {
-		fmt.Println(err)
-	}
-	tm := time.Now().Format("2006-01-02 15:04:05")
-	fmt.Printf("[ws][%s]:[%s]", tm, mes)
-	err = ws.WriteMessage(1, []byte(mes))
-	if err != nil {
-		fmt.Println(err)
+		go func() {
+			mes, err := utils.Subscribe(ctx, utils.PubkushKey)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			tm := time.Now().Format("2006-01-02 15:04:05")
+			fmt.Printf("[ws][%s]:[%s]\n", tm, mes)
+		}()
+
 	}
 }

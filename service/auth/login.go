@@ -5,7 +5,6 @@ import (
 	"ginchat1/models/auth"
 	"ginchat1/service/user"
 	"ginchat1/utils"
-	"strconv"
 )
 
 type LoginRequest struct {
@@ -29,7 +28,7 @@ func Login(req *LoginRequest) (resp *user.UserResp, code int, err error) {
 
 	token := utils.RandomString(64, 62)
 
-	db := auth.SaveToken(strconv.Itoa(int(findUser.ID)), token)
+	db := auth.SaveToken(findUser.UUID, token)
 
 	if db.Error != nil {
 		err = db.Error
@@ -37,7 +36,7 @@ func Login(req *LoginRequest) (resp *user.UserResp, code int, err error) {
 	}
 
 	resp = &user.UserResp{
-		ID:         strconv.Itoa(int(findUser.ID)),
+		UUID:       findUser.UUID,
 		UserName:   findUser.UserName,
 		Name:       findUser.Name,
 		CreateTime: findUser.CreatedAt,

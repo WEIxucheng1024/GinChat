@@ -11,7 +11,7 @@ import (
 // GetAllUserBasic
 // @Summary 所有用户
 // @Tags User
-// @Param user-id header string true "用户id"
+// @Param user-uuid header string true "用户id"
 // @Param user-token header string true "用户token"
 // @Success 200 {string} json {"code": "200", "message": "Success"}
 // @Router /user/getUserList [get]

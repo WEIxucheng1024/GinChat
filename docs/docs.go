@@ -41,7 +41,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "用户名",
-                        "name": "user_name",
+                        "name": "userName",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -203,7 +203,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "用户id",
-                        "name": "user-id",
+                        "name": "user-uuid",
                         "in": "header",
                         "required": true
                     },
@@ -271,7 +271,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "用户id",
-                        "name": "user-id",
+                        "name": "user-uuid",
                         "in": "header",
                         "required": true
                     },

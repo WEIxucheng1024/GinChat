@@ -75,6 +75,8 @@ const (
 
 // Publish 发布消息到Redis
 func Publish(ctx context.Context, channel, message string) (err error) {
+	fmt.Println("------------------")
+
 	fmt.Println("publish message :", message)
 	err = Red.Publish(ctx, channel, message).Err()
 	return err
@@ -82,8 +84,21 @@ func Publish(ctx context.Context, channel, message string) (err error) {
 
 // Subscribe 订阅Redis消息
 func Subscribe(ctx context.Context, channel string) (string, error) {
+	fmt.Println("+++++++++++++++++++++++")
 	sub := Red.Subscribe(ctx, channel)
+	//ch := sub.Channel()
+	//
+	//for message := range ch {
+	//	fmt.Println("Subscribe message :", message.Payload)
+	//	return message.Payload, nil
+	//}
+	//return "", nil
+
 	mes, err := sub.ReceiveMessage(ctx)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
 	fmt.Println("Subscribe message :", mes.Payload)
 	return mes.Payload, err
 }
