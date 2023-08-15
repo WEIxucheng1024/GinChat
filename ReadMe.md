@@ -1,3 +1,6 @@
+# B站视频讲的太垃圾了！这个项目弃坑了！重新找项目！B站对应的地址：https://www.bilibili.com/video/BV17K41167aa?p=25&spm_id_from=pageDriver&vd_source=5ee143798da4473e92f845592d86e81f
+
+
 git：
 
 仓库相关：

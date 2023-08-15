@@ -65,7 +65,6 @@ func InitRedis() {
 		fmt.Println("redistest err,", err)
 		return
 	}
-
 	fmt.Println("redis inited....", pong)
 }
 
@@ -75,8 +74,6 @@ const (
 
 // Publish 发布消息到Redis
 func Publish(ctx context.Context, channel, message string) (err error) {
-	fmt.Println("------------------")
-
 	fmt.Println("publish message :", message)
 	err = Red.Publish(ctx, channel, message).Err()
 	return err
@@ -84,7 +81,6 @@ func Publish(ctx context.Context, channel, message string) (err error) {
 
 // Subscribe 订阅Redis消息
 func Subscribe(ctx context.Context, channel string) (string, error) {
-	fmt.Println("+++++++++++++++++++++++")
 	sub := Red.Subscribe(ctx, channel)
 	//ch := sub.Channel()
 	//

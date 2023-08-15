@@ -235,6 +235,5 @@ func MsgHandler(ws *websocket.Conn, ctx *gin.Context) {
 			tm := time.Now().Format("2006-01-02 15:04:05")
 			fmt.Printf("[ws][%s]:[%s]\n", tm, mes)
 		}()
-
 	}
 }
