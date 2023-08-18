@@ -28,5 +28,7 @@ func Router() *gin.Engine {
 	r.GET("/user/signOut", controllers.SignOut)
 
 	r.GET("/user/testMes", user.TestMes)
+	r.GET("/user/sendUserMsg", user.SendUserMsg)
+
 	return r
 }

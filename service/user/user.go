@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"ginchat1/models"
+	"ginchat1/models/message"
 	"ginchat1/utils"
 	"math/rand"
 	"net/http"
@@ -236,4 +237,8 @@ func MsgHandler(ws *websocket.Conn, ctx *gin.Context) {
 			fmt.Printf("[ws][%s]:[%s]\n", tm, mes)
 		}()
 	}
+}
+
+func SendUserMsg(c *gin.Context) {
+	message.Chat(c.Writer, c.Request)
 }
